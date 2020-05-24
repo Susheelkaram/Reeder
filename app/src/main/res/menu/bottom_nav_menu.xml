@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab_Read"
+        android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
+        android:title="Read" />
+
+    <item
+        android:id="@+id/tab_MyFeeds"
+        android:icon="@drawable/ic_rss_feed_black_24dp"
+        android:title="My Feeds" />
+    <item
+        android:id="@+id/tab_Bookmarks"
+        android:icon="@drawable/ic_bookmark_black_24dp"
+        android:title="BookMarks" />
+</menu>
