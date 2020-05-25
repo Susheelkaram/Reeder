@@ -3,4 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorXXXLightGrey">#EEEEEE</color>
+    <color name="colorXXLightGrey">#CCCCCC</color>
+    <color name="colorXLightGrey">#AAAAAA</color>
+    <color name="colorLightGrey">#999999</color>
+    <color name="colorGrey">#777777</color>
+    <color name="colorDarkGrey">#555555</color>
+    <color name="colorXDarkGrey">#333333</color>
 </resources>

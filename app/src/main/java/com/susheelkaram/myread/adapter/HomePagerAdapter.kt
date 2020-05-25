@@ -3,9 +3,9 @@ package com.susheelkaram.myread.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.susheelkaram.myread.ui.BookmarksFragment
-import com.susheelkaram.myread.ui.HomeFragment
-import com.susheelkaram.myread.ui.MyFeedListFragment
+import com.susheelkaram.myread.ui.fragments.BookmarksFragment
+import com.susheelkaram.myread.ui.fragments.HomeFragment
+import com.susheelkaram.myread.ui.fragments.MyFeedListFragment
 
 /**
  * Created by Susheel Kumar Karam

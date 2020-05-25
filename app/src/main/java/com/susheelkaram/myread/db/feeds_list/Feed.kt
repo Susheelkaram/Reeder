@@ -10,9 +10,10 @@ import com.susheelkaram.myread.utils.Constants
  */
 @Entity(tableName = Constants.TABLE_NAME_FEEDLIST)
 data class Feed(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val title: String,
-    val url: String,
-    val imageUrl: String,
+    val feedUrl: String,
+    val link: String,
+    val imageUrl: String?,
     val description: String
 )
