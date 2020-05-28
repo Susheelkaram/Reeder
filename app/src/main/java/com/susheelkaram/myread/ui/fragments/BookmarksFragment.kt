@@ -8,9 +8,6 @@ import android.view.ViewGroup
 
 import com.susheelkaram.myread.R
 
-/**
- * A simple [Fragment] subclass.
- */
 class BookmarksFragment : Fragment() {
 
     override fun onCreateView(
@@ -19,6 +16,12 @@ class BookmarksFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bookmarks, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
 }

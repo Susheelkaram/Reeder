@@ -1,12 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">@font/nunito</item>
+        <item name="toolbarStyle">@style/toolbarStyle</item>
     </style>
 
+    <style name="toolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="backgroundColor">@color/colorPrimary</item>
+        <item name="actionButtonStyle">@style/menuActionButtonStyle</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
+        <item name="fontFamily">@font/nunito</item>
+        <item name="iconTint">@color/colorWhite</item>
+    </style>
+
+    <style name="menuActionButtonStyle">
+        <item name="android:tint">@color/colorWhite</item>
+    </style>
+    
 </resources>
