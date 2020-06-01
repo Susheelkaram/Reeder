@@ -2,7 +2,6 @@
 <layout>
 
     <data>
-
         <variable
             name="vm"
             type="com.susheelkaram.myread.ui.viewmodel.AddFeedViewModel" />
@@ -36,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textUri"
+                android:hint="Feed Url"
                 android:text="@={vm.feedUrl}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,8 +43,11 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="15dp"
             android:onClick="@{() -> vm.onAddFeedClick()}"
             android:text="Add Feed"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent" />
 
 

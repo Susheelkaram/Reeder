@@ -8,8 +8,8 @@ class FeedListRepo(private val feedListDao: FeedListDao) {
 
     val feedList = feedListDao.getFeedList()
 
-    suspend fun addFeed(feed: Feed): Boolean {
-        return feedListDao.insertFeeds(feed).isNotEmpty()
+    suspend fun addFeed(feed: Feed): List<Long> {
+        return feedListDao.insertFeeds(feed)
     }
 
     suspend fun deleteFeed(feed: Feed): Boolean {

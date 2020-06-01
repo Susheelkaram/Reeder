@@ -46,11 +46,9 @@ class MyFeedListFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onBuildToolbar(): FragmentToolbar {
-        var onItemClick = object : MenuClick {
-            override fun onMenuItemClick(item: MenuItem) {
-                when(item.itemId) {
-                    R.id.menu_add_feed -> openFeedEditor()
-                }
+        var onItemClick = MenuClick { item ->
+            when (item.itemId) {
+                R.id.menu_add_feed -> openFeedEditor()
             }
         }
         return FragmentToolbar.Builder()

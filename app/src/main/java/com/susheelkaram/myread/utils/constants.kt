@@ -7,6 +7,5 @@ package com.susheelkaram.myread.utils
 object Constants {
     const val FILE_NAME_DB = "my_read_db"
     const val TABLE_NAME_FEEDLIST = "table_feed_list"
-    const val TABLE_NAME_ARTICLES = "table_articles"
-
+    const val TABLE_NAME_FEED_ARTICLES = "table_feed_articles"
 }

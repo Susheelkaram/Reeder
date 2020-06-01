@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.susheelkaram.myread.db.articles.ArticlesDao
+import com.susheelkaram.myread.db.articles.FeedArticle
 import com.susheelkaram.myread.db.feeds_list.Feed
 import com.susheelkaram.myread.db.feeds_list.FeedListDao
 import com.susheelkaram.myread.utils.Constants
@@ -13,9 +16,10 @@ import com.susheelkaram.myread.utils.Constants
  * Website - SusheelKaram.com
  */
 
-@Database(entities = arrayOf(Feed::class), version = 1, exportSchema = false)
+@Database(entities = [Feed::class, FeedArticle::class], version = 1, exportSchema = false)
 abstract class DB : RoomDatabase() {
     abstract fun feedListDao(): FeedListDao
+    abstract fun articlesListDao(): ArticlesDao
 
     companion object {
         @Volatile
@@ -31,7 +35,9 @@ abstract class DB : RoomDatabase() {
                     context,
                     DB::class.java,
                     Constants.FILE_NAME_DB
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
                 return instance

@@ -58,6 +58,8 @@ dependencies {
     // ViewPager 2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
+    implementation 'com.squareup.moshi:moshi:1.9.2'
+
     // RSS Parsing
     implementation 'com.prof.rssparser:rssparser:3.0.0'
 

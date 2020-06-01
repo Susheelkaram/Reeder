@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.databinding.ActivityAddFeedBinding
 import com.susheelkaram.myread.ui.viewmodel.AddFeedViewModel

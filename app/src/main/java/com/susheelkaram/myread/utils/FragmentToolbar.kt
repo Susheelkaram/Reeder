@@ -43,3 +43,11 @@ class FragmentToolbar(
 interface MenuClick {
     fun onMenuItemClick(item: MenuItem)
 }
+
+fun MenuClick(lamda: (item: MenuItem) -> Unit) : MenuClick {
+    return object : MenuClick {
+        override fun onMenuItemClick(item: MenuItem) {
+            lamda(item)
+        }
+    }
+}
