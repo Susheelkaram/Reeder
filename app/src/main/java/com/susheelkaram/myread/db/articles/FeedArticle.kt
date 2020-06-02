@@ -1,17 +1,17 @@
 package com.susheelkaram.myread.db.articles
 
-import androidx.room.*
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.prof.rssparser.Article
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import com.susheelkaram.myread.utils.Constants
-import java.lang.reflect.Type
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Susheel Kumar Karam
  * Website - SusheelKaram.com
  */
+@Parcelize
 @Entity(tableName = Constants.TABLE_NAME_FEED_ARTICLES)
 data class FeedArticle(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
@@ -30,7 +30,7 @@ data class FeedArticle(
     var isRead: Boolean = false,
     var isBookMarked: Boolean = false,
     var feedId: Long = -1
-) {
+) : Parcelable {
     companion object {
         fun from(article: Article): FeedArticle {
             return FeedArticle(

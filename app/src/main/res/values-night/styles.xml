@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="articleTitleStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="articleDescriptionStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:color">@color/colorXXLightGrey</item>
+    </style>
+
+    <!-- Read Article page Styles -->
+    <style name="readArticleTitleStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="readArticleBodyStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorXXLightGrey</item>
+    </style>
+</resources>

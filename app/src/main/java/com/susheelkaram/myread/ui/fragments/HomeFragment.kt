@@ -1,18 +1,16 @@
 package com.susheelkaram.myread.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.susheelkaram.myread.R
-
 import com.susheelkaram.myread.adapter.ArticleListAdapter
 import com.susheelkaram.myread.callbacks.ArticleItemAction
-import com.susheelkaram.myread.callbacks.RecyclerViewCallBack
 import com.susheelkaram.myread.databinding.FragmentHomeBinding
 import com.susheelkaram.myread.db.DB
 import com.susheelkaram.myread.db.articles.ArticlesRepo
@@ -54,7 +52,7 @@ class HomeFragment : BaseFragment() {
             .setResId(R.id.toolbar_Home)
             .setTitle(R.string.fragment_read)
             .setMenu(R.menu.menu_home)
-            .setMenuItemClickListenet(MenuClick { item ->
+            .setMenuItemClickListener(MenuClick { item ->
                 when (item.itemId) {
                     R.id.menu_switch_dark_mode -> Utils.switchDarkLightTheme()
                 }

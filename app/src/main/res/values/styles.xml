@@ -24,7 +24,7 @@
 
     <style name="articleTitleStyle">
         <item name="android:textSize">16sp</item>
-        <item name="android:color">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -32,5 +32,23 @@
         <item name="android:textSize">14sp</item>
         <item name="android:color">@color/colorXLightGrey</item>
     </style>
-    
+
+    <style name="BorderedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:padding">15dp</item>
+        <item name="strokeColor">@color/colorXXLightGrey</item>
+    </style>
+
+
+    <!-- Read Article page Styles -->
+    <style name="readArticleTitleStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="readArticleBodyStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
+    </style>
+
 </resources>

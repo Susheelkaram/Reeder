@@ -2,13 +2,9 @@ package com.susheelkaram.myread.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,12 +12,10 @@ import com.susheelkaram.myread.R
 import com.susheelkaram.myread.adapter.FeedListAdapter
 
 import com.susheelkaram.myread.databinding.FragmentMyFeedListBinding
-import com.susheelkaram.myread.generated.callback.OnClickListener
 import com.susheelkaram.myread.ui.activities.AddFeedActivity
 import com.susheelkaram.myread.ui.viewmodel.MyFeedListViewModel
 import com.susheelkaram.myread.utils.FragmentToolbar
 import com.susheelkaram.myread.utils.MenuClick
-import kotlinx.android.synthetic.main.fragment_my_feed_list.view.*
 
 class MyFeedListFragment : BaseFragment(), View.OnClickListener {
 
@@ -55,7 +49,7 @@ class MyFeedListFragment : BaseFragment(), View.OnClickListener {
             .setResId(R.id.toolbar_MyFeeds)
             .setTitle(R.string.fragment_my_feeds)
             .setMenu(R.menu.menu_toolbar_my_feeds)
-            .setMenuItemClickListenet(onItemClick)
+            .setMenuItemClickListener(onItemClick)
             .build()
     }
 

@@ -1,9 +1,8 @@
 package com.susheelkaram.myread
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
 import com.susheelkaram.myread.adapter.HomePagerAdapter
 import com.susheelkaram.myread.databinding.ActivityMainBinding
 

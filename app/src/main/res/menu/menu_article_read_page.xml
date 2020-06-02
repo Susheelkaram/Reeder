@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_bookmark"
+        android:checkable="true"
+        android:title="Bookmark"
+        android:icon="@drawable/ic_bookmark_border_black_24dp"
+        app:iconTint="@color/colorWhite"
+        app:showAsAction="always" />
+    <item
+        android:icon="@drawable/ic_brightness_2_black_24dp"
+        app:iconTint="@color/colorWhite"
+        android:id="@+id/menu_switch_dark_mode_read"
+        android:title="Dark/Light Mode"
+        app:showAsAction="always" />
+</menu>

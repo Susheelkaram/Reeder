@@ -4,7 +4,7 @@ import android.view.MenuItem
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
-import java.util.*
+import androidx.appcompat.widget.Toolbar
 
 /**
  * Created by Susheel Kumar Karam
@@ -14,6 +14,7 @@ class FragmentToolbar(
     @StringRes val title: Int,
     @IdRes val resId: Int,
     @MenuRes val menuId: Int,
+    val toolbar: Toolbar?,
     val onMenuItemClick: MenuClick?
 ) {
 
@@ -27,15 +28,17 @@ class FragmentToolbar(
         private var resId: Int = -1
         private var menu: Int = -1
         private var onMenuItemClick: MenuClick? = null
+        private var toolbar: Toolbar? = null
 
         fun setTitle(title: Int) = apply { this.title = title }
         fun setResId(@IdRes resId: Int) = apply { this.resId = resId }
         fun setMenu(@MenuRes menuId: Int) = apply { this.menu = menuId }
-        fun setMenuItemClickListenet(onMenuItemClick: MenuClick) =
+        fun setMenuItemClickListener(onMenuItemClick: MenuClick) =
             apply { this.onMenuItemClick = onMenuItemClick }
 
+        fun setToolbar(toolbar: Toolbar) = apply { this.toolbar = toolbar }
         fun build(): FragmentToolbar {
-            return FragmentToolbar(title, resId, menu, onMenuItemClick)
+            return FragmentToolbar(title, resId, menu, toolbar, onMenuItemClick)
         }
     }
 }

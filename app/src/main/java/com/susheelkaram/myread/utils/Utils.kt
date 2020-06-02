@@ -9,10 +9,14 @@ import androidx.appcompat.app.AppCompatDelegate
 class Utils {
     companion object {
         fun switchDarkLightTheme() {
-            if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            if(AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
+                setThemeMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
-            else  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else setThemeMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+        fun setThemeMode(mode: Int) {
+            AppCompatDelegate.setDefaultNightMode(mode)
         }
     }
 }
