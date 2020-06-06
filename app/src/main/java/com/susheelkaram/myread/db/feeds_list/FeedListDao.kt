@@ -13,6 +13,9 @@ interface FeedListDao {
     @Query("SELECT * FROM ${Constants.TABLE_NAME_FEEDLIST}")
     fun getFeedList(): LiveData<List<Feed>>
 
+    @Query("SELECT * FROM ${Constants.TABLE_NAME_FEEDLIST}")
+    suspend fun getFeedListNow(): List<Feed>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFeeds(vararg feeds: Feed): List<Long>
 

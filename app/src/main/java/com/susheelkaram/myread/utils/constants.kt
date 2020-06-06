@@ -8,4 +8,15 @@ object Constants {
     const val FILE_NAME_DB = "my_read_db"
     const val TABLE_NAME_FEEDLIST = "table_feed_list"
     const val TABLE_NAME_FEED_ARTICLES = "table_feed_articles"
+
+    // Articles table
+    const val COL_IS_BOOKMARKED = "isBookmarked"
+    const val COL_PUB_DATE = "pubDate"
+    const val COL_IS_READ = "isRead"
+    const val COL_FEED_ID = "feedId"
+
+    // Feed Syncing
+    const val SYNC_INTERVAL = 15L // mins
+    const val FEED_SYNC_WORK_NAME = "feedSyncWork"
+
 }

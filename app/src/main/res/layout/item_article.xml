@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -37,19 +38,20 @@
             style="@style/articleTitleStyle"
             android:text="Android rules with 53% of market share" />
 
-        <TextView
-            android:id="@+id/txt_ArticleDescription"
-            style="@style/articleDescriptionStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="Android rules with 53% of market share" />
+<!--        <TextView-->
+<!--            android:id="@+id/txt_ArticleDescription"-->
+<!--            style="@style/articleDescriptionStyle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:maxLines="1"-->
+<!--            android:ellipsize="end"-->
+<!--            android:text="Android rules with 53% of market share" />-->
     </LinearLayout>
 
     <CheckBox
         android:id="@+id/checkbox_Bookmark"
         android:layout_width="24dp"
+        android:layout_margin="5dp"
         android:layout_height="wrap_content"
         android:button="@drawable/ic_stateful_bookmark"
         android:textAlignment="center" />

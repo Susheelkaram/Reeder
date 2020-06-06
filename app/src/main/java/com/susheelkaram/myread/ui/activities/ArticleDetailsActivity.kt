@@ -41,11 +41,12 @@ class ArticleDetailsActivity : BaseActivity() {
                 HtmlCompat.fromHtml(vm.article.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
             setBookmarkIconState(
                 B.toolbarReadArticle.menu.findItem(R.id.menu_bookmark),
-                it.isBookMarked
+                it.isBookmarked
             )
             if (vm.article.image.isNotEmpty()) {
                 Glide.with(this)
                     .load(vm.article.image)
+                    .placeholder(R.drawable.rectangle_block)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(B.imgFeatureImage)
             }

@@ -8,6 +8,14 @@ import androidx.lifecycle.LiveData
  */
 class ArticlesRepo(val articlesDao: ArticlesDao) {
     val articles: LiveData<List<FeedArticle>> = articlesDao.getAll()
+    val bookmarkedArticles: LiveData<List<FeedArticle>> = articlesDao.getBookmarkedArticles()
+
+    suspend fun fetchArticles() : List<FeedArticle> {
+        return articlesDao.getAllNow()
+    }
+    suspend fun fetchArticlesByFeedId(feedId: Long) : List<FeedArticle> {
+        return articlesDao.getArticlesByFeedIdSynchronously(feedId)
+    }
 
     suspend fun addArticle(article: FeedArticle): Boolean {
         return articlesDao.insert(article).isNotEmpty()
@@ -23,6 +31,10 @@ class ArticlesRepo(val articlesDao: ArticlesDao) {
 
     suspend fun deleteArticles(articles: Array<FeedArticle>): Boolean {
         return articlesDao.delete(*articles) > 0
+    }
+
+    suspend fun deleteArticlesByFeedId(feedId: Long): Boolean {
+        return articlesDao.deleteArticlesByFeedId(feedId) > 0
     }
 
     suspend fun updateArticle(article: FeedArticle): Boolean {

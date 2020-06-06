@@ -23,7 +23,7 @@ class ArticleDetailViewModel(application: Application, val article: FeedArticle)
     fun setBookmark(isBookMarked: Boolean) {
         article?.let {
            viewModelScope.async {
-               articleRepo.updateArticle(it.copy(isBookMarked = isBookMarked))
+               articleRepo.updateArticle(it.copy(isBookmarked = isBookMarked))
            }
         }
     }

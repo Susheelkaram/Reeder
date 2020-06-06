@@ -1,10 +1,12 @@
 package com.susheelkaram.myread.db.articles
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.prof.rssparser.Article
 import com.susheelkaram.myread.utils.Constants
+import com.susheelkaram.myread.utils.Utils
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -19,7 +21,7 @@ data class FeedArticle(
     var title: String = "",
     var author: String = "",
     var link: String = "",
-    var pubDate: String = "",
+    @ColumnInfo(name = Constants.COL_PUB_DATE) var pubDate: Long = 0,
     var description: String = "",
     var content: String = "",
     var image: String = "",
@@ -27,9 +29,9 @@ data class FeedArticle(
     var sourceName: String = "",
     var sourceUrl: String = "",
     var categories: String = "",
-    var isRead: Boolean = false,
-    var isBookMarked: Boolean = false,
-    var feedId: Long = -1
+    @ColumnInfo(name = Constants.COL_IS_READ) var isRead: Boolean = false,
+    @ColumnInfo(name = Constants.COL_IS_BOOKMARKED) var isBookmarked: Boolean = false,
+    @ColumnInfo(name = Constants.COL_FEED_ID) var feedId: Long = -1
 ) : Parcelable {
     companion object {
         fun from(article: Article): FeedArticle {
@@ -38,7 +40,7 @@ data class FeedArticle(
                 title = article.title ?: "",
                 author = article.author ?: "",
                 link = article.link ?: "",
-                pubDate = article.pubDate ?: "",
+                pubDate = Utils.getEpochFromTimestamp(article.pubDate, inMillis = true) ?: 0,
                 description = article.description ?: "",
                 content = article.content ?: "",
                 image = article.image ?: "",

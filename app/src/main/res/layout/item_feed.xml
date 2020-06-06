@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:foreground="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/img_FeedImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:src="@drawable/rss_feed_default_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +26,7 @@
         android:layout_marginStart="10dp">
         <TextView
             android:id="@+id/txt_FeedTitle"
+            style="@style/feedTitleStyle"
             android:text="Digicular"
             android:textSize="20sp"
             android:layout_width="wrap_content"

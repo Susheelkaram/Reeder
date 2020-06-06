@@ -1,5 +1,6 @@
 package com.susheelkaram.myread.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +13,21 @@ import com.susheelkaram.myread.R
 import com.susheelkaram.myread.adapter.ArticleListAdapter
 import com.susheelkaram.myread.callbacks.ArticleItemAction
 import com.susheelkaram.myread.databinding.FragmentHomeBinding
-import com.susheelkaram.myread.db.DB
 import com.susheelkaram.myread.db.articles.ArticlesRepo
 import com.susheelkaram.myread.db.articles.FeedArticle
+import com.susheelkaram.myread.db.feeds_list.FeedListRepo
+import com.susheelkaram.myread.syncing.FeedSync
+import com.susheelkaram.myread.ui.activities.ArticleDetailsActivity
 import com.susheelkaram.myread.ui.viewmodel.HomeViewModel
 import com.susheelkaram.myread.utils.FragmentToolbar
 import com.susheelkaram.myread.utils.MenuClick
 import com.susheelkaram.myread.utils.Utils
+import com.susheelkaram.trackky.utils.showToast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import org.koin.android.ext.android.get
 
 /**
  * A simple [Fragment] subclass.
@@ -27,8 +36,12 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var B: FragmentHomeBinding
     private lateinit var vm: HomeViewModel
-    private lateinit var db: DB
-    private var articlesRepo: ArticlesRepo? = null
+    private var articlesRepo: ArticlesRepo = get<ArticlesRepo>()
+    private var feedsRepo: FeedListRepo = get<FeedListRepo>()
+    private var feedSync : FeedSync? = null
+
+    private var job = Job()
+    private var coroutineScope = CoroutineScope(job + Dispatchers.IO)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +50,7 @@ class HomeFragment : BaseFragment() {
         // Inflate the layout for this fragment
         B = FragmentHomeBinding.inflate(inflater, container, false)
         vm = ViewModelProvider(this).get(HomeViewModel::class.java)
-        db = DB.getInstance(requireContext())
-        articlesRepo = ArticlesRepo(db.articlesListDao())
+        feedSync = FeedSync(requireContext())
         return B.root
     }
 
@@ -55,21 +67,36 @@ class HomeFragment : BaseFragment() {
             .setMenuItemClickListener(MenuClick { item ->
                 when (item.itemId) {
                     R.id.menu_switch_dark_mode -> Utils.switchDarkLightTheme()
+                    R.id.menu_refresh_feeds -> refreshFeeds()
                 }
             })
         return fragmentToolbarBuilder.build()
     }
 
+    private fun refreshFeeds() {
+        coroutineScope.async {
+            feedSync?.sync()
+        }
+        requireContext().showToast("Feeds refreshed")
+    }
+
     private fun setupArticleList() {
         val adapter: ArticleListAdapter = ArticleListAdapter(
             requireContext(),
-            object : ArticleItemAction {
+            object : ArticleItemAction<FeedArticle> {
                 override fun onBookmarkClick(isBookmarked: Boolean, item: FeedArticle) {
                     vm.onBookmark(isBookmarked, item)
                 }
 
                 override fun onDelete(item: FeedArticle) {
                     TODO("Not yet implemented")
+                }
+
+                override fun onItemClick(type: String, article: FeedArticle) {
+                    markArticleAsRead(article)
+                    var articleReadPageIntent = Intent(context, ArticleDetailsActivity::class.java)
+                    articleReadPageIntent.putExtra("article", article)
+                    requireContext().startActivity(articleReadPageIntent)
                 }
             }
         )
@@ -80,5 +107,11 @@ class HomeFragment : BaseFragment() {
         })
     }
 
+    fun markArticleAsRead(article: FeedArticle) {
+        coroutineScope.async {
+            article.isRead = true
+            articlesRepo.updateArticle(article)
+        }
+    }
 
 }

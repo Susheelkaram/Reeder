@@ -6,7 +6,7 @@ import com.susheelkaram.myread.db.articles.FeedArticle
  * Created by Susheel Kumar Karam
  * Website - SusheelKaram.com
  */
-interface ArticleItemAction {
+interface ArticleItemAction<T>: RecyclerViewCallback<T> {
     fun onBookmarkClick(isBookmarked: Boolean, item: FeedArticle)
     fun onDelete(item: FeedArticle)
 }

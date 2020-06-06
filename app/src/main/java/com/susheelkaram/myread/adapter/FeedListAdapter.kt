@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.susheelkaram.myread.R
+import com.susheelkaram.myread.callbacks.RecyclerViewCallback
 import com.susheelkaram.myread.db.feeds_list.Feed
 
 /**
  * Created by Susheel Kumar Karam
  * Website - SusheelKaram.com
  */
-class FeedListAdapter(private val context: Context) :
+class FeedListAdapter(private val context: Context, private val onItemClick: RecyclerViewCallback<Feed>) :
     RecyclerView.Adapter<FeedListAdapter.FeedListVH>() {
 
     private var feedList = listOf<Feed>()
@@ -41,6 +42,9 @@ class FeedListAdapter(private val context: Context) :
 
         holder.feedTitle.text = feed.title
         holder.feedUrl.text = feed.feedUrl
+        holder.itemView.setOnClickListener {
+            onItemClick?.onItemClick("item", feed)
+        }
         if(!feed.imageUrl.isNullOrEmpty()) {
             Glide.with(context)
                 .load(feed.imageUrl)
@@ -49,6 +53,7 @@ class FeedListAdapter(private val context: Context) :
                 .into(holder.feedImage)
         }
     }
+
 
     fun setData(feeds: List<Feed>) {
         feedList = feeds

@@ -2,9 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:icon="@drawable/ic_brightness_2_black_24dp"
+        android:id="@+id/menu_refresh_feeds"
+        android:icon="@drawable/ic_refresh_black_24dp"
+        android:title="Refresh feeds"
         app:iconTint="@color/colorWhite"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/menu_switch_dark_mode"
+        android:icon="@drawable/ic_brightness_2_black_24dp"
         android:title="Dark/Light Mode"
+        app:iconTint="@color/colorWhite"
         app:showAsAction="always" />
 </menu>

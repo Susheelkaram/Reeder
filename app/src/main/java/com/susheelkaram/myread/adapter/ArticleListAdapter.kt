@@ -1,19 +1,18 @@
 package com.susheelkaram.myread.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.text.HtmlCompat
+import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.callbacks.ArticleItemAction
 import com.susheelkaram.myread.db.articles.FeedArticle
-import com.susheelkaram.myread.ui.activities.ArticleDetailsActivity
+import com.susheelkaram.myread.utils.Utils
 
 /**
  * Created by Susheel Kumar Karam
@@ -21,7 +20,7 @@ import com.susheelkaram.myread.ui.activities.ArticleDetailsActivity
  */
 class ArticleListAdapter(
     val context: Context,
-    val onItemAction: ArticleItemAction
+    private val onItemAction: ArticleItemAction<FeedArticle>
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleVH>() {
 
     private var articlesList = listOf<FeedArticle>()
@@ -33,7 +32,7 @@ class ArticleListAdapter(
 
     class ArticleVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtArticleTitle = itemView.findViewById<TextView>(R.id.txt_ArticleTitle)
-        val txtArticleDescription = itemView.findViewById<TextView>(R.id.txt_ArticleDescription)
+//        val txtArticleDescription = itemView.findViewById<TextView>(R.id.txt_ArticleDescription)
         val txtArticleTimeStamp = itemView.findViewById<TextView>(R.id.txt_ArticleTimestamp)
         val imgFeedLogo = itemView.findViewById<ImageView>(R.id.img_FeedLogo)
         val checkBoxBookmark = itemView.findViewById<CheckBox>(R.id.checkbox_Bookmark)
@@ -48,26 +47,30 @@ class ArticleListAdapter(
         return articlesList.size
     }
 
+    fun setReadStatus(titleView: TextView, isRead: Boolean) {
+        TextViewCompat.setTextAppearance(titleView, R.style.articleTitleStyle)
+        if(isRead) TextViewCompat.setTextAppearance(titleView, R.style.articleReadTitleStyle)
+    }
+
     override fun onBindViewHolder(holder: ArticleVH, position: Int) {
         var article = articlesList[position]
-
-        holder.txtArticleTitle.text = article.title
-        holder.txtArticleDescription.text = HtmlCompat.fromHtml(article.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        holder.txtArticleTimeStamp.text = article.pubDate
-
 
         // To avoid unnecessary checking when Views are Recycled
         holder.checkBoxBookmark.setOnCheckedChangeListener(null)
 
+        setReadStatus(holder.txtArticleTitle, article.isRead)
+
+        holder.txtArticleTitle.text = article.title
+//        holder.txtArticleDescription.text = HtmlCompat.fromHtml(article.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        holder.txtArticleTimeStamp.text = Utils.getFormattedTimeStamp(article.pubDate, isMillis = true)
+
         holder.itemView.setOnClickListener {
-            var articleReadPageIntent = Intent(context, ArticleDetailsActivity::class.java)
-            articleReadPageIntent.putExtra("article", article)
-            context.startActivity(articleReadPageIntent)
+            onItemAction.onItemClick("item", article)
         }
 
-        holder.checkBoxBookmark.isChecked = article.isBookMarked
+        holder.checkBoxBookmark.isChecked = article.isBookmarked
         holder.checkBoxBookmark.setOnCheckedChangeListener { buttonView, isChecked ->
-            articlesList[position].isBookMarked = isChecked
+            articlesList[position].isBookmarked = isChecked
             onItemAction.onBookmarkClick(isChecked, article)
         }
     }

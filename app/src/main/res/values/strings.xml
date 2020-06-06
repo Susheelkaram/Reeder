@@ -4,4 +4,5 @@
     <string name="fragment_my_feeds">My Feeds</string>
     <string name="fragment_bookmarks">Bookmarks</string>
     <string name="fragment_read">My Read</string>
+    <string name="channel_id_feed_notitifications">channel_feed_notifications</string>
 </resources>
