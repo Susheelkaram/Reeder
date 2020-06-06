@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -17,14 +18,40 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:title="@string/fragment_read" />
+
             <androidx.recyclerview.widget.RecyclerView
-                app:layout_constraintTop_toBottomOf="@id/toolbar_Home"
                 android:id="@+id/rv_Articles"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:paddingTop="5dp"
                 app:layout_constrainedHeight="true"
-                android:layout_width="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_height="0dp" />
+                app:layout_constraintTop_toBottomOf="@id/toolbar_Home" />
+
+            <LinearLayout
+                android:id="@+id/ll_EmptyView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@id/toolbar_Home"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No news"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="10dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_AddFeedHome"
+                    style="@style/BorderedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add feed" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

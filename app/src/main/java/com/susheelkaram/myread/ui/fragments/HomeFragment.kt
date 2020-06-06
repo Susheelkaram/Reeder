@@ -17,11 +17,14 @@ import com.susheelkaram.myread.db.articles.ArticlesRepo
 import com.susheelkaram.myread.db.articles.FeedArticle
 import com.susheelkaram.myread.db.feeds_list.FeedListRepo
 import com.susheelkaram.myread.syncing.FeedSync
+import com.susheelkaram.myread.ui.activities.AddFeedActivity
 import com.susheelkaram.myread.ui.activities.ArticleDetailsActivity
 import com.susheelkaram.myread.ui.viewmodel.HomeViewModel
 import com.susheelkaram.myread.utils.FragmentToolbar
 import com.susheelkaram.myread.utils.MenuClick
 import com.susheelkaram.myread.utils.Utils
+import com.susheelkaram.trackky.utils.hide
+import com.susheelkaram.trackky.utils.show
 import com.susheelkaram.trackky.utils.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +35,7 @@ import org.koin.android.ext.android.get
 /**
  * A simple [Fragment] subclass.
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var B: FragmentHomeBinding
     private lateinit var vm: HomeViewModel
@@ -56,6 +59,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        B.btnAddFeedHome.setOnClickListener(this)
         setupArticleList()
     }
 
@@ -102,7 +106,18 @@ class HomeFragment : BaseFragment() {
         )
         B.rvArticles.layoutManager = LinearLayoutManager(requireContext())
         B.rvArticles.adapter = adapter
+        vm.feeds.observe(viewLifecycleOwner, Observer {
+            adapter.setFeedlist(it)
+        })
         vm.articles.observe(viewLifecycleOwner, Observer {
+            if(it.isEmpty()) {
+                B.rvArticles.hide()
+                B.llEmptyView.show()
+            }
+            else {
+                B.rvArticles.show()
+                B.llEmptyView.hide()
+            }
             adapter.setData(it)
         })
     }
@@ -111,6 +126,17 @@ class HomeFragment : BaseFragment() {
         coroutineScope.async {
             article.isRead = true
             articlesRepo.updateArticle(article)
+        }
+    }
+
+    private fun openFeedEditor() {
+        var intent = Intent(requireContext(), AddFeedActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btn_AddFeedHome -> openFeedEditor()
         }
     }
 

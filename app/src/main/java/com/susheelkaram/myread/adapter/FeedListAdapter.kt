@@ -50,6 +50,7 @@ class FeedListAdapter(private val context: Context, private val onItemClick: Rec
                 .load(feed.imageUrl)
                 .circleCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .fallback(R.drawable.rss_feed_default_logo)
                 .into(holder.feedImage)
         }
     }

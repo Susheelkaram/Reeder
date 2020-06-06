@@ -4,24 +4,28 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.susheelkaram.myread.db.DB
 import com.susheelkaram.myread.db.articles.ArticlesRepo
 import com.susheelkaram.myread.db.articles.FeedArticle
+import com.susheelkaram.myread.db.feeds_list.Feed
+import com.susheelkaram.myread.db.feeds_list.FeedListRepo
 import kotlinx.coroutines.async
+import org.koin.core.KoinComponent
+import org.koin.core.get
 
 /**
  * Created by Susheel Kumar Karam
  * Website - SusheelKaram.com
  */
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
-    private val db: DB = DB.getInstance(application)
-    private val articlesRepo: ArticlesRepo
+class HomeViewModel(application: Application) : AndroidViewModel(application), KoinComponent {
+    private var articlesRepo: ArticlesRepo = get<ArticlesRepo>()
+    private var feedsRepo: FeedListRepo = get<FeedListRepo>()
     var articles: LiveData<List<FeedArticle>>
+    var feeds: LiveData<List<Feed>>
     var bookmarkedArticles: LiveData<List<FeedArticle>>
 
     init {
-        articlesRepo = ArticlesRepo(db.articlesListDao())
         articles = articlesRepo.articles
+        feeds = feedsRepo.feedList
         bookmarkedArticles = articlesRepo.bookmarkedArticles
     }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.callbacks.ArticleItemAction
 import com.susheelkaram.myread.db.articles.FeedArticle
+import com.susheelkaram.myread.db.feeds_list.Feed
 import com.susheelkaram.myread.utils.Utils
 
 /**
@@ -24,6 +25,7 @@ class ArticleListAdapter(
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleVH>() {
 
     private var articlesList = listOf<FeedArticle>()
+    private var feedList = listOf<Feed>()
 
     companion object {
         const val BTN_DELETE = "btnDelete"
@@ -32,8 +34,8 @@ class ArticleListAdapter(
 
     class ArticleVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtArticleTitle = itemView.findViewById<TextView>(R.id.txt_ArticleTitle)
-//        val txtArticleDescription = itemView.findViewById<TextView>(R.id.txt_ArticleDescription)
         val txtArticleTimeStamp = itemView.findViewById<TextView>(R.id.txt_ArticleTimestamp)
+        val txtFeedName = itemView.findViewById<TextView>(R.id.txt_FeedName)
         val imgFeedLogo = itemView.findViewById<ImageView>(R.id.img_FeedLogo)
         val checkBoxBookmark = itemView.findViewById<CheckBox>(R.id.checkbox_Bookmark)
     }
@@ -47,13 +49,18 @@ class ArticleListAdapter(
         return articlesList.size
     }
 
-    fun setReadStatus(titleView: TextView, isRead: Boolean) {
+    private fun setReadStatus(titleView: TextView, isRead: Boolean) {
         TextViewCompat.setTextAppearance(titleView, R.style.articleTitleStyle)
-        if(isRead) TextViewCompat.setTextAppearance(titleView, R.style.articleReadTitleStyle)
+        if (isRead) TextViewCompat.setTextAppearance(titleView, R.style.articleReadTitleStyle)
     }
 
     override fun onBindViewHolder(holder: ArticleVH, position: Int) {
         var article = articlesList[position]
+        var feed = feedList.find { feed -> article.feedId == feed.id}
+
+        feed?.let {
+            holder.txtFeedName.text = feed.title
+        }
 
         // To avoid unnecessary checking when Views are Recycled
         holder.checkBoxBookmark.setOnCheckedChangeListener(null)
@@ -61,8 +68,8 @@ class ArticleListAdapter(
         setReadStatus(holder.txtArticleTitle, article.isRead)
 
         holder.txtArticleTitle.text = article.title
-//        holder.txtArticleDescription.text = HtmlCompat.fromHtml(article.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        holder.txtArticleTimeStamp.text = Utils.getFormattedTimeStamp(article.pubDate, isMillis = true)
+        holder.txtArticleTimeStamp.text =
+            Utils.getFormattedTimeStamp(article.pubDate, isMillis = true)
 
         holder.itemView.setOnClickListener {
             onItemAction.onItemClick("item", article)
@@ -77,6 +84,11 @@ class ArticleListAdapter(
 
     fun setData(articles: List<FeedArticle>) {
         articlesList = articles
+        notifyDataSetChanged()
+    }
+
+    fun setFeedlist(feeds: List<Feed>) {
+        feedList = feeds
         notifyDataSetChanged()
     }
 }
