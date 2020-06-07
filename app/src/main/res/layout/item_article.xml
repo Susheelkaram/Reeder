@@ -21,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/img_FeedLogo"
-                android:layout_width="18sp"
-                android:layout_height="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/rss_feed_default_logo" />
 
@@ -30,6 +30,7 @@
                 android:id="@+id/txt_FeedName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:text="Feed name" />
         </LinearLayout>
 

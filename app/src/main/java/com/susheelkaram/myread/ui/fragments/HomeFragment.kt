@@ -92,12 +92,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     vm.onBookmark(isBookmarked, item)
                 }
 
-                override fun onDelete(item: FeedArticle) {
-                    TODO("Not yet implemented")
-                }
-
                 override fun onItemClick(type: String, article: FeedArticle) {
-                    markArticleAsRead(article)
+                    vm.markArticleAsRead(article)
                     var articleReadPageIntent = Intent(context, ArticleDetailsActivity::class.java)
                     articleReadPageIntent.putExtra("article", article)
                     requireContext().startActivity(articleReadPageIntent)
@@ -120,13 +116,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             adapter.setData(it)
         })
-    }
-
-    fun markArticleAsRead(article: FeedArticle) {
-        coroutineScope.async {
-            article.isRead = true
-            articlesRepo.updateArticle(article)
-        }
     }
 
     private fun openFeedEditor() {

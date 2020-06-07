@@ -8,5 +8,4 @@ import com.susheelkaram.myread.db.articles.FeedArticle
  */
 interface ArticleItemAction<T>: RecyclerViewCallback<T> {
     fun onBookmarkClick(isBookmarked: Boolean, item: FeedArticle)
-    fun onDelete(item: FeedArticle)
 }

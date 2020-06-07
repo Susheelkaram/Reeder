@@ -8,16 +8,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.callbacks.RecyclerViewCallback
 import com.susheelkaram.myread.db.feeds_list.Feed
+
 
 /**
  * Created by Susheel Kumar Karam
  * Website - SusheelKaram.com
  */
-class FeedListAdapter(private val context: Context, private val onItemClick: RecyclerViewCallback<Feed>) :
+class FeedListAdapter(
+    private val context: Context,
+    private val onItemClick: RecyclerViewCallback<Feed>
+) :
     RecyclerView.Adapter<FeedListAdapter.FeedListVH>() {
 
     private var feedList = listOf<Feed>()
@@ -45,14 +50,15 @@ class FeedListAdapter(private val context: Context, private val onItemClick: Rec
         holder.itemView.setOnClickListener {
             onItemClick?.onItemClick("item", feed)
         }
-        if(!feed.imageUrl.isNullOrEmpty()) {
-            Glide.with(context)
-                .load(feed.imageUrl)
-                .circleCrop()
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .fallback(R.drawable.rss_feed_default_logo)
-                .into(holder.feedImage)
-        }
+        val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
+
+        if (!feed.imageUrl.isNullOrEmpty()) holder.feedImage.setPadding(5,5,5,5)
+        Glide.with(context)
+            .load(if (!feed.imageUrl.isNullOrEmpty()) feed.imageUrl else R.drawable.rss_feed_default_logo)
+            .transition(withCrossFade(factory))
+            .circleCrop()
+            .placeholder(R.drawable.rss_feed_default_logo)
+            .into(holder.feedImage)
     }
 
 

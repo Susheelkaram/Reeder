@@ -37,4 +37,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), K
         }
     }
 
+    fun markArticleAsRead(article: FeedArticle) {
+        viewModelScope.async {
+            article.isRead = true
+            articlesRepo.updateArticle(article)
+        }
+    }
+
 }

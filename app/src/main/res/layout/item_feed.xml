@@ -10,9 +10,9 @@
         android:id="@+id/img_FeedImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/rss_feed_default_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/circle_border"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

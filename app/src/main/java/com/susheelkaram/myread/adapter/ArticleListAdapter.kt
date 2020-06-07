@@ -9,6 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.callbacks.ArticleItemAction
 import com.susheelkaram.myread.db.articles.FeedArticle
@@ -56,9 +59,15 @@ class ArticleListAdapter(
 
     override fun onBindViewHolder(holder: ArticleVH, position: Int) {
         var article = articlesList[position]
-        var feed = feedList.find { feed -> article.feedId == feed.id}
+        var feed = feedList.find { feed -> article.feedId == feed.id }
 
         feed?.let {
+            val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
+            Glide.with(context)
+                .load(if(!feed.imageUrl.isNullOrEmpty()) feed.imageUrl else R.drawable.rss_feed_default_logo)
+                .transition(DrawableTransitionOptions.withCrossFade(factory))
+                .placeholder(R.drawable.rss_feed_default_logo)
+                .into(holder.imgFeedLogo)
             holder.txtFeedName.text = feed.title
         }
 

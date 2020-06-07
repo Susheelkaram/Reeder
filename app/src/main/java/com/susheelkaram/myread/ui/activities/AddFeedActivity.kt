@@ -1,6 +1,7 @@
 package com.susheelkaram.myread.ui.activities
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -47,5 +48,11 @@ class AddFeedActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    fun isFormValid() : Boolean {
+        if(!Patterns.WEB_URL.matcher(B.inputFeedUrl.text).matches()) {
+            B.inputFeedUrl.error = ""
+        }
+        return true
+    }
 
 }
