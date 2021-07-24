@@ -20,7 +20,7 @@ class TheApplicaton : Application() {
 
         startKoin {
             androidContext(this@TheApplicaton)
-            androidLogger(Level.DEBUG)
+            androidLogger(Level.ERROR)
             modules(dbModule)
         }
     }
