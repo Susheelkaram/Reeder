@@ -44,10 +44,9 @@ class FeedHelper(
         }
     }
 
-    var rssParser = Parser.Builder()
+    private var rssParser = Parser.Builder()
         .context(application)
-        .charset(Charset.forName("ISO-8859-7"))
-        .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
+        .cacheExpirationMillis(60L * 60L * 100L) // 1 hour
         .build()
 
     suspend fun fetchFeed(feedUrl: String): Channel? {
@@ -61,7 +60,7 @@ class FeedHelper(
         return channel
     }
 
-    fun doesFeedExist(feedUrl: String, feedList: List<Feed>): Boolean {
+    private fun doesFeedExist(feedUrl: String, feedList: List<Feed>): Boolean {
         var currentUrl = convertUrlToFormat(feedUrl)
         for (feed in feedList) {
             if (convertUrlToFormat(feed.feedUrl) == currentUrl) {

@@ -16,7 +16,7 @@ object Constants {
     const val COL_FEED_ID = "feedId"
 
     // Feed Syncing
-    const val SYNC_INTERVAL = 15L // mins
+    const val SYNC_INTERVAL = 30L // mins
     const val FEED_SYNC_WORK_NAME = "feedSyncWork"
 
 }
