@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="10dp"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="5dp"
     android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
@@ -18,15 +19,9 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/img_FeedLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/rss_feed_default_logo" />
-
+            
             <TextView
+                style="@style/txtStyle_FeedName"
                 android:id="@+id/txt_FeedName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/articleTitleStyle"
-            android:text="Android rules with 53% of market share" />
+            android:text="Android rules with 53% of market share"
+            android:maxLines="2"
+            android:ellipsize="end"/>
         <TextView
             android:id="@+id/txt_ArticleTimestamp"
             android:text="Today, 12.30PM"

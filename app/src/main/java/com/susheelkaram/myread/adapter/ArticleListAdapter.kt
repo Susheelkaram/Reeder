@@ -39,7 +39,6 @@ class ArticleListAdapter(
         val txtArticleTitle = itemView.findViewById<TextView>(R.id.txt_ArticleTitle)
         val txtArticleTimeStamp = itemView.findViewById<TextView>(R.id.txt_ArticleTimestamp)
         val txtFeedName = itemView.findViewById<TextView>(R.id.txt_FeedName)
-        val imgFeedLogo = itemView.findViewById<ImageView>(R.id.img_FeedLogo)
         val checkBoxBookmark = itemView.findViewById<CheckBox>(R.id.checkbox_Bookmark)
     }
 
@@ -63,11 +62,6 @@ class ArticleListAdapter(
 
         feed?.let {
             val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
-            Glide.with(context)
-                .load(if(!feed.imageUrl.isNullOrEmpty()) feed.imageUrl else R.drawable.rss_feed_default_logo)
-                .transition(DrawableTransitionOptions.withCrossFade(factory))
-                .placeholder(R.drawable.rss_feed_default_logo)
-                .into(holder.imgFeedLogo)
             holder.txtFeedName.text = feed.title
         }
 

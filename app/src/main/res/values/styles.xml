@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/nunito</item>
         <item name="toolbarStyle">@style/toolbarStyle</item>
     </style>
@@ -61,6 +61,10 @@
     <style name="readArticleBodyStyle">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorDarkGrey</item>
+    </style>
+
+    <style name="txtStyle_FeedName">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
 </resources>
