@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.adapter.ArticleListAdapter
@@ -102,6 +103,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         )
         B.rvArticles.layoutManager = LinearLayoutManager(requireContext())
         B.rvArticles.adapter = adapter
+        B.rvArticles.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         vm.feeds.observe(viewLifecycleOwner, Observer {
             adapter.setFeedlist(it)
         })
