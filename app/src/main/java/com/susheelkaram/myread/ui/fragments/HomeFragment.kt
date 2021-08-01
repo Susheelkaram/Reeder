@@ -27,10 +27,7 @@ import com.susheelkaram.myread.utils.Utils
 import com.susheelkaram.trackky.utils.hide
 import com.susheelkaram.trackky.utils.show
 import com.susheelkaram.trackky.utils.showToast
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.get
 
 /**
@@ -72,7 +69,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             .setMenuItemClickListener(MenuClick { item ->
                 when (item.itemId) {
                     R.id.menu_switch_dark_mode -> Utils.switchDarkLightTheme()
-                    R.id.menu_refresh_feeds -> refreshFeeds()
+                    R.id.menu_refresh_feeds -> {
+                        B.refreshLayoutFeeds.isRefreshing = true
+                        refreshFeeds()
+                    }
                 }
             })
         return fragmentToolbarBuilder.build()
@@ -81,8 +81,11 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private fun refreshFeeds() {
         coroutineScope.async {
             feedSync?.sync()
+            withContext(Dispatchers.Main) {
+                requireContext().showToast("Feeds refreshed")
+                B.refreshLayoutFeeds.isRefreshing = false
+            }
         }
-        requireContext().showToast("Feeds refreshed")
     }
 
     private fun setupArticleList() {
@@ -104,6 +107,11 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         B.rvArticles.layoutManager = LinearLayoutManager(requireContext())
         B.rvArticles.adapter = adapter
         B.rvArticles.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
+        B.refreshLayoutFeeds.setOnRefreshListener {
+            refreshFeeds()
+        }
+
         vm.feeds.observe(viewLifecycleOwner, Observer {
             adapter.setFeedlist(it)
         })
