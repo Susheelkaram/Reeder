@@ -3,6 +3,7 @@ package com.susheelkaram.myread.ui.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
@@ -32,6 +33,7 @@ class ArticleDetailsActivity : BaseActivity() {
             ArticleDetailViewModel::class.java
         )
         setData()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setData() {
@@ -39,10 +41,6 @@ class ArticleDetailsActivity : BaseActivity() {
             B.txtReadTitle.text = vm.article.title
             B.txtReadBody.text =
                 HtmlCompat.fromHtml(vm.article.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            setBookmarkIconState(
-                B.toolbarReadArticle.menu.findItem(R.id.menu_bookmark),
-                it.isBookmarked
-            )
             if (vm.article.image.isNotEmpty()) {
                 Glide.with(this)
                     .load(vm.article.image)
@@ -59,7 +57,16 @@ class ArticleDetailsActivity : BaseActivity() {
             }
         }
     }
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val superVal = super.onCreateOptionsMenu(menu)
+        vm.article?.let {
+            setBookmarkIconState(
+                B.toolbarReadArticle.menu.findItem(R.id.menu_bookmark),
+                it.isBookmarked
+            )
+        }
+        return superVal
+    }
     override fun onBuildToolbar(): FragmentToolbar {
         var toolbar = findViewById<Toolbar>(R.id.toolbar_ReadArticle)
         var fragmentToolbarBuilder = FragmentToolbar.Builder()

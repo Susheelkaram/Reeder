@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="fontFamily">@font/nunito</item>
         <item name="toolbarStyle">@style/toolbarStyle</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_baseline_arrow_back_24</item>
     </style>
 
     <style name="toolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
