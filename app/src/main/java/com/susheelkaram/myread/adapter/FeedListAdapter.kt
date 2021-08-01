@@ -13,6 +13,7 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.callbacks.RecyclerViewCallback
 import com.susheelkaram.myread.db.feeds_list.Feed
+import com.susheelkaram.myread.utils.Utils
 
 
 /**
@@ -28,7 +29,7 @@ class FeedListAdapter(
     private var feedList = listOf<Feed>()
 
     class FeedListVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var feedImage = itemView.findViewById<ImageView>(R.id.img_FeedImg)
+        var logoText = itemView.findViewById<TextView>(R.id.txt_Logo)
         var feedTitle = itemView.findViewById<TextView>(R.id.txt_FeedTitle)
         var feedUrl = itemView.findViewById<TextView>(R.id.txt_FeedUrl)
     }
@@ -51,14 +52,7 @@ class FeedListAdapter(
             onItemClick?.onItemClick("item", feed)
         }
         val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
-
-        if (!feed.imageUrl.isNullOrEmpty()) holder.feedImage.setPadding(5,5,5,5)
-        Glide.with(context)
-            .load(if (!feed.imageUrl.isNullOrEmpty()) feed.imageUrl else R.drawable.rss_feed_default_logo)
-            .transition(withCrossFade(factory))
-            .circleCrop()
-            .placeholder(R.drawable.rss_feed_default_logo)
-            .into(holder.feedImage)
+        holder.logoText.text = Utils.getInitialsFromText(feed.title.toUpperCase())
     }
 
 

@@ -70,5 +70,12 @@ class Utils {
 
             return null
         }
+
+        fun getInitialsFromText(text: String): String {
+            if(text.length < 2) return text;
+            val words = text.split(" ");
+            return if (words.size > 1) words[0].substring(0, 1) + words[1].substring(0, 1)
+            else text.substring(0, 2);
+        }
     }
 }

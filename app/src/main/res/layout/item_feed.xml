@@ -6,17 +6,21 @@
     android:padding="10dp"
     android:foreground="?attr/selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/img_FeedImg"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <TextView
+        android:id="@+id/txt_Logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DI"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/circle_border"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/circle"/>
 
     <LinearLayout
-        app:layout_constraintLeft_toRightOf="@id/img_FeedImg"
+        app:layout_constraintLeft_toRightOf="@id/txt_Logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical"
