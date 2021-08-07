@@ -19,6 +19,7 @@ import com.susheelkaram.myread.ui.viewmodel.ArticleViewVMFactory
 import com.susheelkaram.myread.utils.FragmentToolbar
 import com.susheelkaram.myread.utils.MenuClick
 import com.susheelkaram.myread.utils.Utils
+import com.susheelkaram.myread.utils.ThemeUtil
 
 class ArticleDetailsActivity : BaseActivity() {
     lateinit var B: ActivityArticleDetailsBinding
@@ -75,7 +76,7 @@ class ArticleDetailsActivity : BaseActivity() {
             .setMenuItemClickListener(MenuClick { item ->
                 when (item.itemId) {
                     R.id.menu_bookmark -> onBookmarkOptionClicked(item)
-                    R.id.menu_switch_dark_mode_read -> Utils.switchDarkLightTheme()
+                    R.id.menu_switch_dark_mode_read -> ThemeUtil.switchThemeAndSetMenuIcon(application, item)
                 }
             })
         return fragmentToolbarBuilder.build()

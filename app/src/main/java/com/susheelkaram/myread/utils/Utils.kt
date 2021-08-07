@@ -10,17 +10,6 @@ import java.util.*
  */
 class Utils {
     companion object {
-        fun switchDarkLightTheme() {
-            if(AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
-                setThemeMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            else setThemeMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-
-        fun setThemeMode(mode: Int) {
-            AppCompatDelegate.setDefaultNightMode(mode)
-        }
-
         fun getEpochFromTimestamp(timeStamp: String?, inMillis: Boolean = false): Long {
             if(timeStamp.isNullOrEmpty()) return 0
 

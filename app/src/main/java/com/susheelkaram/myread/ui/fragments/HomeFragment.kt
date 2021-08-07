@@ -23,6 +23,7 @@ import com.susheelkaram.myread.ui.activities.ArticleDetailsActivity
 import com.susheelkaram.myread.ui.viewmodel.HomeViewModel
 import com.susheelkaram.myread.utils.FragmentToolbar
 import com.susheelkaram.myread.utils.MenuClick
+import com.susheelkaram.myread.utils.ThemeUtil
 import com.susheelkaram.myread.utils.Utils
 import com.susheelkaram.trackky.utils.hide
 import com.susheelkaram.trackky.utils.show
@@ -68,7 +69,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             .setMenu(R.menu.menu_home)
             .setMenuItemClickListener(MenuClick { item ->
                 when (item.itemId) {
-                    R.id.menu_switch_dark_mode -> Utils.switchDarkLightTheme()
+                    R.id.menu_switch_dark_mode -> activity?.application?.let {
+                        ThemeUtil.switchThemeAndSetMenuIcon(it, item)
+                    }
                     R.id.menu_refresh_feeds -> {
                         B.refreshLayoutFeeds.isRefreshing = true
                         refreshFeeds()

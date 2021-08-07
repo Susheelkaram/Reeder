@@ -19,4 +19,7 @@ object Constants {
     const val SYNC_INTERVAL = 30L // mins
     const val FEED_SYNC_WORK_NAME = "feedSyncWork"
 
+    // Preferences
+    const val PREF_FILE_COMMON = "commonPreferences"
+    const val PREF_THEME_MODE = "themeMode"
 }
