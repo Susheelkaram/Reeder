@@ -20,7 +20,7 @@ class ThemeUtil {
         }
 
         fun getThemeIcon(selectedTheme: Int): Int {
-            return if (selectedTheme == AppCompatDelegate.MODE_NIGHT_NO) R.drawable.ic_baseline_wb_sunny_24
+            return if (selectedTheme == AppCompatDelegate.MODE_NIGHT_YES) R.drawable.ic_baseline_wb_sunny_24
             else R.drawable.ic_brightness_2_black_24dp
         }
 

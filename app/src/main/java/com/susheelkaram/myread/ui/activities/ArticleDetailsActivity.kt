@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
@@ -60,12 +61,13 @@ class ArticleDetailsActivity : BaseActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val superVal = super.onCreateOptionsMenu(menu)
+        val bookmarkMenuItem = B.toolbarReadArticle.menu.findItem(R.id.menu_bookmark)
+        val themeModeMenuItem = B.toolbarReadArticle.menu.findItem(R.id.menu_switch_dark_mode_read)
+        val themeMode = AppCompatDelegate.getDefaultNightMode()
         vm.article?.let {
-            setBookmarkIconState(
-                B.toolbarReadArticle.menu.findItem(R.id.menu_bookmark),
-                it.isBookmarked
-            )
+            setBookmarkIconState(bookmarkMenuItem, it.isBookmarked)
         }
+        themeModeMenuItem.setIcon(ThemeUtil.getThemeIcon(themeMode))
         return superVal
     }
     override fun onBuildToolbar(): FragmentToolbar {
