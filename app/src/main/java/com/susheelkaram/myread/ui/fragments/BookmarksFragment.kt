@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.susheelkaram.myread.adapter.ArticleListAdapter
 import com.susheelkaram.myread.callbacks.ArticleItemAction
@@ -60,6 +61,7 @@ class BookmarksFragment : Fragment() {
         )
         B.rvBookmarks.layoutManager = LinearLayoutManager(requireContext())
         B.rvBookmarks.adapter = adapter
+        B.rvBookmarks.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         vm.feeds.observe(viewLifecycleOwner, Observer {
             adapter.setFeedlist(it)
