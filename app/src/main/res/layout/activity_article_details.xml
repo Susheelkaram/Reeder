@@ -1,62 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.activities.ArticleDetailsActivity">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_ReadArticle"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            tools:context=".ui.activities.ArticleDetailsActivity">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_ReadArticle">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_ReadArticle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <LinearLayout
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/collapsible_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginTop="?actionBarSize"
+                android:background="@color/colorWhite">
 
-                <TextView
-                    android:id="@+id/txt_ReadTitle"
-                    style="@style/readArticleTitleStyle"
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="Android leads market with 57% of share" />
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-                <ImageView
-                    android:id="@+id/img_FeatureImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" />
+                    <ImageView
+                        android:id="@+id/img_FeatureImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_collapseMode="parallax"
+                        tools:src="@mipmap/ic_launcher" />
 
-                <TextView
-                    android:id="@+id/txt_ReadBody"
-                    style="@style/readArticleBodyStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="Android leads market with 57% of shareAndroid leads market with 57% of share Android leads market with 57% of share Android leads market with 57% of share" />
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_OpenArticleLink"
-                    style="@style/BorderedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Read full article"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-            </LinearLayout>
-        </ScrollView>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/collapsible_layout">
+
+                <include
+                    android:id="@+id/layout_article_body"
+                    layout="@layout/sublayout_article_body"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.core.widget.NestedScrollView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/elevation_top_box"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_OpenArticleLink"
+                style="@style/SolidButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="Read full article"
+                app:icon="@drawable/ic_baseline_open_in_new_24"
+                app:iconGravity="textEnd"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

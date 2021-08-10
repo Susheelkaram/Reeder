@@ -50,6 +50,13 @@
         <item name="android:padding">15dp</item>
         <item name="strokeColor">@color/colorXXLightGrey</item>
     </style>
+    <style name="SolidButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="IconButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:minWidth">0dp</item>
+    </style>
 
 
     <!-- Read Article page Styles -->
@@ -61,7 +68,7 @@
 
     <style name="readArticleBodyStyle">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/colorDarkGrey</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
     <style name="txtStyle_FeedName">

@@ -1,8 +1,13 @@
 package com.susheelkaram.myread.ui.activities
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.Html
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,8 +24,8 @@ import com.susheelkaram.myread.ui.viewmodel.ArticleDetailViewModel
 import com.susheelkaram.myread.ui.viewmodel.ArticleViewVMFactory
 import com.susheelkaram.myread.utils.FragmentToolbar
 import com.susheelkaram.myread.utils.MenuClick
-import com.susheelkaram.myread.utils.Utils
 import com.susheelkaram.myread.utils.ThemeUtil
+import org.xml.sax.XMLReader
 
 class ArticleDetailsActivity : BaseActivity() {
     lateinit var B: ActivityArticleDetailsBinding
@@ -39,10 +44,11 @@ class ArticleDetailsActivity : BaseActivity() {
     }
 
     private fun setData() {
-        vm.article?.let {
-            B.txtReadTitle.text = vm.article.title
-            B.txtReadBody.text =
-                HtmlCompat.fromHtml(vm.article.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        vm.article.let {
+            B.layoutArticleBody.txtReadTitle.text = vm.article.title
+            B.layoutArticleBody.txtFeedName.text = vm.article.author
+            B.layoutArticleBody.txtReadBody.text =
+                HtmlCompat.fromHtml(vm.article.getBody(), HtmlCompat.FROM_HTML_MODE_LEGACY, MyImageGetter(context = this), MyHTMLTagHandler())
             if (vm.article.image.isNotEmpty()) {
                 Glide.with(this)
                     .load(vm.article.image)
@@ -93,5 +99,23 @@ class ArticleDetailsActivity : BaseActivity() {
     private fun setBookmarkIconState(menuItem: MenuItem, isBookmarked: Boolean) {
         menuItem.setChecked(isBookmarked)
         menuItem.setIcon(if (isBookmarked) R.drawable.ic_bookmark_black_24dp else R.drawable.ic_bookmark_border_black_24dp)
+    }
+
+    class MyHTMLTagHandler : Html.TagHandler {
+        override fun handleTag(
+            opening: Boolean,
+            tag: String?,
+            output: Editable?,
+            xmlReader: XMLReader?
+        ) {
+            Log.d("TAG_HANDLER", tag)
+        }
+
+    }
+
+    class  MyImageGetter(val context: Context) :  Html.ImageGetter {
+        override fun getDrawable(source: String?): Drawable {
+            return context.getDrawable(R.drawable.circle)!!
+        }
     }
 }

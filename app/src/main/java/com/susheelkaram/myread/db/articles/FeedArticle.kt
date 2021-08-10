@@ -33,6 +33,12 @@ data class FeedArticle(
     @ColumnInfo(name = Constants.COL_IS_BOOKMARKED) var isBookmarked: Boolean = false,
     @ColumnInfo(name = Constants.COL_FEED_ID) var feedId: Long = -1
 ) : Parcelable {
+
+    fun getBody(): String {
+        return if (description.isNotEmpty()) description else content
+    }
+
+
     companion object {
         fun from(article: Article): FeedArticle {
             return FeedArticle(
