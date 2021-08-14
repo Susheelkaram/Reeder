@@ -46,7 +46,7 @@ class Notify(private val mContext: Context) {
         val channelId = mContext.getString(R.string.channel_id_feed_notitifications)
 
         return NotificationCompat.Builder(mContext, channelId)
-            .setSmallIcon(R.drawable.ic_chrome_reader_mode_black_24dp)
+            .setSmallIcon(R.drawable.reeder_logo_transparent)
             .setContentTitle(title)
             .setContentText(body)
             .setStyle(NotificationCompat.BigTextStyle().bigText(body))
