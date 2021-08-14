@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.susheelkaram.myread.ui.viewmodel.ArticleDetailViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -65,6 +70,7 @@
             android:paddingStart="8dp"
             android:paddingTop="5dp"
             android:paddingEnd="8dp"
+            android:paddingBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.button.MaterialButton
@@ -77,7 +83,16 @@
                 android:text="Read full article"
                 app:icon="@drawable/ic_baseline_open_in_new_24"
                 app:iconGravity="textEnd"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:onClick="@{() -> vm.openArticleInBrowser()}"/>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/IconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_baseline_share_24"
+                android:onClick="@{() -> vm.shareArticle()}"/>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

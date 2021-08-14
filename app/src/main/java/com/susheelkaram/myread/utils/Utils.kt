@@ -1,6 +1,7 @@
 package com.susheelkaram.myread.utils
 
-import androidx.appcompat.app.AppCompatDelegate
+import android.content.Context
+import android.content.Intent
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -65,6 +66,16 @@ class Utils {
             val words = text.split(" ");
             return if (words.size > 1) words[0].substring(0, 1) + words[1].substring(0, 1)
             else text.substring(0, 2);
+        }
+
+        fun shareText(text: String, context: Context) {
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, text)
+                type = "text/plain"
+            }
+
+            context.startActivity(Intent.createChooser(shareIntent, null))
         }
     }
 }

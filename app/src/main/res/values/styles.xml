@@ -51,7 +51,7 @@
         <item name="strokeColor">@color/colorXXLightGrey</item>
     </style>
     <style name="SolidButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-        <item name="android:padding">12dp</item>
+        <item name="android:padding">8dp</item>
     </style>
 
     <style name="IconButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">

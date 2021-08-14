@@ -12,19 +12,23 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.susheelkaram.myread.R
 import com.susheelkaram.myread.databinding.ActivityArticleDetailsBinding
 import com.susheelkaram.myread.db.articles.FeedArticle
+import com.susheelkaram.myread.ui.model.UiEvent
 import com.susheelkaram.myread.ui.viewmodel.ArticleDetailViewModel
 import com.susheelkaram.myread.ui.viewmodel.ArticleViewVMFactory
 import com.susheelkaram.myread.utils.FragmentToolbar
 import com.susheelkaram.myread.utils.MenuClick
 import com.susheelkaram.myread.utils.ThemeUtil
+import com.susheelkaram.myread.utils.Utils
 import org.xml.sax.XMLReader
 
 class ArticleDetailsActivity : BaseActivity() {
@@ -33,14 +37,33 @@ class ArticleDetailsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        B = DataBindingUtil.setContentView(this, R.layout.activity_article_details)
 
-        var article = intent.getParcelableExtra<FeedArticle>("article")
+        B = DataBindingUtil.setContentView(this, R.layout.activity_article_details)
+        val article = intent.getParcelableExtra<FeedArticle>("article")
         vm = ViewModelProvider(this, ArticleViewVMFactory(application, article)).get(
             ArticleDetailViewModel::class.java
         )
-        setData()
+        B.vm = vm
+        initialize()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initialize() {
+        vm.uiEvent.observe(this, Observer { event ->
+            if (event is UiEvent.Navigate.Implicit) {
+                when (event.action) {
+                    "share" -> {
+                        Utils.shareText(event.data, this)
+                    }
+                    "view" -> {
+                        val openOriginalLinkIntent = Intent(Intent.ACTION_VIEW)
+                        openOriginalLinkIntent.data = Uri.parse(event.data)
+                        startActivity(openOriginalLinkIntent)
+                    }
+                }
+            }
+        })
+        setData()
     }
 
     private fun setData() {
@@ -48,7 +71,12 @@ class ArticleDetailsActivity : BaseActivity() {
             B.layoutArticleBody.txtReadTitle.text = vm.article.title
             B.layoutArticleBody.txtFeedName.text = vm.article.author
             B.layoutArticleBody.txtReadBody.text =
-                HtmlCompat.fromHtml(vm.article.getBody(), HtmlCompat.FROM_HTML_MODE_LEGACY, MyImageGetter(context = this), MyHTMLTagHandler())
+                HtmlCompat.fromHtml(
+                    vm.article.getBody(),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY,
+                    MyImageGetter(context = this),
+                    MyHTMLTagHandler()
+                )
             if (vm.article.image.isNotEmpty()) {
                 Glide.with(this)
                     .load(vm.article.image)
@@ -56,15 +84,9 @@ class ArticleDetailsActivity : BaseActivity() {
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(B.imgFeatureImage)
             }
-            B.btnOpenArticleLink.setOnClickListener {
-                if (vm.article.link.isNotEmpty()) {
-                    var openOriginalLinkIntent = Intent(Intent.ACTION_VIEW)
-                    openOriginalLinkIntent.data = Uri.parse(vm.article.link)
-                    startActivity(openOriginalLinkIntent)
-                }
-            }
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val superVal = super.onCreateOptionsMenu(menu)
         val bookmarkMenuItem = B.toolbarReadArticle.menu.findItem(R.id.menu_bookmark)
@@ -76,6 +98,7 @@ class ArticleDetailsActivity : BaseActivity() {
         themeModeMenuItem.setIcon(ThemeUtil.getThemeIcon(themeMode))
         return superVal
     }
+
     override fun onBuildToolbar(): FragmentToolbar {
         var toolbar = findViewById<Toolbar>(R.id.toolbar_ReadArticle)
         var fragmentToolbarBuilder = FragmentToolbar.Builder()
@@ -84,7 +107,10 @@ class ArticleDetailsActivity : BaseActivity() {
             .setMenuItemClickListener(MenuClick { item ->
                 when (item.itemId) {
                     R.id.menu_bookmark -> onBookmarkOptionClicked(item)
-                    R.id.menu_switch_dark_mode_read -> ThemeUtil.switchThemeAndSetMenuIcon(application, item)
+                    R.id.menu_switch_dark_mode_read -> ThemeUtil.switchThemeAndSetMenuIcon(
+                        application,
+                        item
+                    )
                 }
             })
         return fragmentToolbarBuilder.build()
@@ -113,9 +139,9 @@ class ArticleDetailsActivity : BaseActivity() {
 
     }
 
-    class  MyImageGetter(val context: Context) :  Html.ImageGetter {
+    class MyImageGetter(val context: Context) : Html.ImageGetter {
         override fun getDrawable(source: String?): Drawable {
-            return context.getDrawable(R.drawable.circle)!!
+            return ContextCompat.getDrawable(context, android.R.color.transparent)!!
         }
     }
 }
