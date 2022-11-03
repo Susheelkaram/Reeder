@@ -22,5 +22,5 @@ Reeder is a beautifully built RSS feed reader for Android built using Kotlin. Th
 5. **Room DB** - For Offline caching
 6. **ViewPager 2**  - For switching fragments with BottomNavigation
 7. **Glide** - Image parsing library
-8. **Work Manager ** - Jetpack library for deferrable background tasks
+8. **Work Manager** - Jetpack library for deferrable background tasks
 9. **ViewModel, Databinding, Moshi, RecyclerView**
